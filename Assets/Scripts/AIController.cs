@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour {
 
-	public Vector2[] targets;
-	public float expectedStationaryTime = 2.0f;
+	public Vector2[] targets = new Vector2[] {new Vector2(0.0f, 0.0f)};
+	public float expectedStationaryTime = 10.0f;
 
 	private Person person;
 	private Vector2 velocity; 
@@ -21,7 +21,7 @@ public class AIController : MonoBehaviour {
 
 	void FixedUpdate () {
 		if (isWalking) {
-			if (DistanceToHome () < person.Speed) {
+			if (DistanceToTarget () < person.Speed * Time.fixedDeltaTime) {
 				SetStationary ();
 			} else {
 				SetVelocity ();
@@ -34,7 +34,11 @@ public class AIController : MonoBehaviour {
  	}
 
 	public void OnEnable() {
-		SetStationary ();	
+		SetWalking ();
+	}
+
+	public void OnDisable() {
+		SetStationary ();
 	}
 
 	public Vector2 GetVelocity() {
@@ -48,8 +52,8 @@ public class AIController : MonoBehaviour {
 
 	private void SetWalking() {
 		isWalking = true;
-		targetIndex = (targetIndex + 1) % targets.Length;
 		SetVelocity ();
+   		targetIndex = (targetIndex + 1) % targets.Length;
 	}
 
 	private void SetVelocity() {
@@ -61,11 +65,11 @@ public class AIController : MonoBehaviour {
 	}
 
 	private bool ShouldWalk() {
-		float walkProbability = 1.0f / (expectedStationaryTime / Time.deltaTime);
+		float walkProbability = 1.0f / (expectedStationaryTime / Time.fixedDeltaTime);
 		return Random.value < walkProbability;
 	}
 
-	private float DistanceToHome() {
+	private float DistanceToTarget() {
 		return Vector2.Distance (targets[targetIndex], gameObject.transform.position);	
 	}
 }
