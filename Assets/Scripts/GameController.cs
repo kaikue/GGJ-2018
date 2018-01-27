@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour {
 	public Text winLoseText;
 	public Image[] infectedIndicators;
 	public Slider[] infectedHealth;
+	public Slider playerHealth;
 
 	//public bool UsingMouse = true;
 
@@ -53,6 +54,8 @@ public class GameController : MonoBehaviour {
 			endIndex = startIndex + infectedIndicators.Length;
 		}
 
+		FillHealthBar(playerHealth, infected[playerIndex].GetComponent<Person>());
+
 		for (int i = 0; i < infectedIndicators.Length; i++) {
 			if (i + startIndex >= endIndex) {
 				infectedIndicators [i].gameObject.SetActive (false);
@@ -70,20 +73,23 @@ public class GameController : MonoBehaviour {
 				infectedIndicators [i].color = tint; 
 				infectedIndicators [i].gameObject.SetActive (true);
 
-				float lifePercent = person.TimeToLive / person.Lifespan;
-				infectedHealth [i].value = lifePercent;
-				infectedHealth [i].gameObject.SetActive (true);
-				var fill = infectedHealth [i].GetComponentsInChildren<Image>().FirstOrDefault(t => t.name == "Fill");
-				if (fill != null)
-				{
-					fill.color = Color.Lerp(Color.red, Color.green, lifePercent);
-				}
+				FillHealthBar(infectedHealth[i], person);
 			}
 		}
-
-
 	}
-	
+
+	private void FillHealthBar(Slider slider, Person person)
+	{
+		float lifePercent = person.TimeToLive / person.Lifespan;
+		slider.value = lifePercent;
+		slider.gameObject.SetActive(true);
+		var fill = slider.GetComponentsInChildren<Image>().FirstOrDefault(t => t.name == "Fill");
+		if (fill != null)
+		{
+			fill.color = Color.Lerp(Color.red, Color.green, lifePercent);
+		}
+	}
+
 	private void SetControl(GameObject personObj, bool controlling)
 	{
 		if (controlling)
