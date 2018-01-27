@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
 
 	public GameObject player;
 	public Camera cam;
+	public AudioSource audioSrc;
 	public Text remainingText;
 	public Text winLoseText;
 	public Image[] infectedIndicators;
@@ -105,6 +106,12 @@ public class GameController : MonoBehaviour {
 		{
 			fill.color = Color.Lerp(Color.red, Color.green, lifePercent);
 		}
+	}
+
+	public void PlaySound(string soundName)
+	{
+		audioSrc.clip = Resources.Load<AudioClip>("Sounds/" + soundName);
+		audioSrc.Play();
 	}
 
 	private void SetControl(GameObject personObj, bool controlling)

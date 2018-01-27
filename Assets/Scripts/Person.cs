@@ -273,7 +273,9 @@ public class Person : MonoBehaviour {
 		coughing = true;
 		coughFrameIndex = 0;
 		coughFrameTimer = FRAME_TIME;
-		
+
+		controller.PlaySound("cough");
+
 		cough = Instantiate(CoughPrefab);
 		cough.transform.position = gameObject.transform.position;
 		cough.transform.parent = gameObject.transform;
