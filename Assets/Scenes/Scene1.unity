@@ -156,6 +156,10 @@ Prefab:
       propertyPath: m_Name
       value: Person (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1614671542467136, guid: 6ceacd16cc09d9042a2cc803bcd076e3, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6ceacd16cc09d9042a2cc803bcd076e3, type: 2}
   m_IsPrefabParent: 0
@@ -249,6 +253,10 @@ Prefab:
       propertyPath: m_Name
       value: Person (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1614671542467136, guid: 6ceacd16cc09d9042a2cc803bcd076e3, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6ceacd16cc09d9042a2cc803bcd076e3, type: 2}
   m_IsPrefabParent: 0
@@ -272,6 +280,8 @@ MonoBehaviour:
   - {x: -4.16, y: -0.6}
   - {x: 1, y: 1}
   expectedStationaryTime: 2
+  coughRunTime: 5
+  coughRunRange: 5
 --- !u!1 &914243207
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +386,10 @@ Prefab:
     - target: {fileID: 1614671542467136, guid: 6ceacd16cc09d9042a2cc803bcd076e3, type: 2}
       propertyPath: m_Name
       value: Person (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1614671542467136, guid: 6ceacd16cc09d9042a2cc803bcd076e3, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6ceacd16cc09d9042a2cc803bcd076e3, type: 2}

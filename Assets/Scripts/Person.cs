@@ -166,13 +166,13 @@ public class Person : MonoBehaviour {
             vel.x = horiz * Speed;
 			vel.y = vert * Speed;
 
-			if (horiz != 0)
-			{
-				facing = new Vector2(horiz < 0 ? -1 : 1, 0);
-			}
-			else if (vert != 0)
+			if (vert != 0)
 			{
 				facing = new Vector2(0, vert < 0 ? -1 : 1);
+			}
+			else if (horiz != 0)
+			{
+				facing = new Vector2(horiz < 0 ? -1 : 1, 0);
 			}
 			
 			rb.velocity = vel;
