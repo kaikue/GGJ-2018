@@ -8,6 +8,7 @@ public class Person : MonoBehaviour {
 	public bool Playing;
 	public GameObject CoughPrefab;
 
+	public string Name;
 	public float Speed;
 	public float CoughSpeed;
 	public float CoughDistance;
@@ -23,14 +24,49 @@ public class Person : MonoBehaviour {
 	private Vector2 facing = new Vector2(0, -1);
 	private bool dead = false;
 	
-	void Start ()
+	private SpriteRenderer sr;
+	private Sprite[] standSprites;
+	private Sprite[][] walkAnims;
+	private string[] DIRECTIONS = { "Down", "Left", "Up", "Right" };
+	private const int NUM_FRAMES = 8;
+	private int frameIndex = 0;
+	private const float FRAME_TIME = 0.1f;
+	private float frameTimer = FRAME_TIME;
+
+	void Start()
 	{
-		rb = GetComponent<Rigidbody2D> ();
-		ai = GetComponent<AIController> ();
+		rb = GetComponent<Rigidbody2D>();
+		ai = GetComponent<AIController>();
 		controller = GameObject.Find("GameController").GetComponent<GameController>();
+		sr = GetComponent<SpriteRenderer>();
+		standSprites = new Sprite[4];
+		FillStandSprites();
+		FillWalkSprites();
 	}
-	
-	void Update ()
+
+	private void FillStandSprites()
+	{
+		walkAnims = new Sprite[4][];
+		for (int i = 0; i < 4; i++)
+		{
+			standSprites[i] = Resources.Load<Sprite>(Name + "/" + DIRECTIONS[i] + "/frame1");
+		}
+	}
+
+	private void FillWalkSprites()
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			Sprite[] anim = new Sprite[NUM_FRAMES];
+			for (int j = 0; j < NUM_FRAMES; j++)
+			{
+				anim[j] = Resources.Load<Sprite>(Name + "/" + DIRECTIONS[i] + "/frame" + (j + 1));
+			}
+			walkAnims[i] = anim;
+		}
+	}
+
+	void Update()
 	{
 		if (dead)
 		{
@@ -67,6 +103,46 @@ public class Person : MonoBehaviour {
 			//controller.usingMouse = false;
 			*/
 		}
+
+		Vector2 vel = rb.velocity;
+		if (vel.x == 0 && vel.y == 0)
+		{
+			frameIndex = 0;
+			frameTimer = FRAME_TIME;
+			sr.sprite = standSprites[GetFacingIndex()];
+		}
+		else
+		{
+			frameTimer -= Time.deltaTime;
+			if (frameTimer <= 0)
+			{
+				frameTimer = FRAME_TIME;
+				frameIndex = (frameIndex + 1) % NUM_FRAMES;
+			}
+			Sprite[] anim = walkAnims[GetFacingIndex()];
+			sr.sprite = anim[frameIndex];
+        }
+	}
+
+	private int GetFacingIndex()
+	{
+		if (facing[0] == -1)
+		{
+			return 1; //left
+		}
+		else if (facing[0] == 1)
+		{
+			return 3; //right
+		}
+		else if (facing[1] == -1)
+		{
+			return 0; //down
+		}
+		else if (facing[1] == 1)
+		{
+			return 2; //up
+		}
+		return 0; //should never happen
 	}
 
 	void FixedUpdate()
