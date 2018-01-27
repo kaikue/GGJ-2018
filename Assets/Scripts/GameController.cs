@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,9 +11,12 @@ public class GameController : MonoBehaviour {
 	public Camera cam;
 	public Text remainingText;
 	public Text winLoseText;
+	public Image[] infectedIndicators;
+	public Slider[] infectedHealth;
 
 	//public bool UsingMouse = true;
 
+	private Sprite sprite;
 	private List<GameObject> infected;
 	private int playerIndex;
 	private List<GameObject> uninfected;
@@ -25,12 +29,53 @@ public class GameController : MonoBehaviour {
 		infected = new List<GameObject>();
 		player.GetComponent<Person>().GetInfected();
 		playerIndex = 0;
+		loadInfectedIndicatorSprites ();
 		SetControl(player, true);
+	}
+
+	void loadInfectedIndicatorSprites() {
+		sprite = Resources.Load<Sprite> ("Grandma/Right/frame1");
 	}
 	
 	void Update()
 	{
 		remainingText.text = "HEALTHY REMAINING: " + uninfected.Count;
+
+		int startIndex;
+		int endIndex;
+		if (infected.Count <= infectedIndicators.Length) {
+			// Does not fill all indicators
+			startIndex = 0;
+			endIndex = infected.Count;
+		} else {
+			startIndex = Math.Min (playerIndex, infected.Count - infectedIndicators.Length);
+			endIndex = startIndex + infectedIndicators.Length;
+		}
+
+		for (int i = 0; i < infectedIndicators.Length; i++) {
+			if (i + startIndex >= endIndex) {
+				infectedIndicators [i].gameObject.SetActive (false);
+				infectedHealth [i].gameObject.SetActive (false);
+			} else {
+				Person person = infected [i + startIndex].GetComponent<Person> ();
+
+				Color tint;
+				if (i + startIndex == playerIndex) {
+					tint = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+				} else {
+					tint = new Color (1.0f, 1.0f, 1.0f, 0.5f);
+				}
+				infectedIndicators [i].sprite = sprite;
+				infectedIndicators [i].color = tint; 
+				infectedIndicators [i].gameObject.SetActive (true);
+
+				infectedHealth [i].value = person.TimeToLive / person.Lifespan;
+				infectedHealth [i].gameObject.SetActive (true);
+
+			}
+		}
+
+
 	}
 	
 	private void SetControl(GameObject personObj, bool controlling)

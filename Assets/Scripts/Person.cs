@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Person : MonoBehaviour {
 
@@ -14,6 +15,7 @@ public class Person : MonoBehaviour {
 	public float CoughSpeed;
 	public float CoughDistance;
 	public float Lifespan;
+	public float TimeToLive; 
 
 	private Rigidbody2D rb;
 	private AIController ai;
@@ -24,7 +26,7 @@ public class Person : MonoBehaviour {
 	private GameObject cough = null;
 	private Vector2 facing = new Vector2(0, -1);
 	private bool dead = false;
-	
+
 	private SpriteRenderer sr;
 	private Sprite[] standSprites;
 	private Sprite[][] walkAnims;
@@ -45,6 +47,7 @@ public class Person : MonoBehaviour {
 		ai = GetComponent<AIController>();
 		controller = GameObject.Find("GameController").GetComponent<GameController>();
 		sr = GetComponent<SpriteRenderer>();
+		TimeToLive = Lifespan;
 		FillStandSprites();
 		walkAnims = new Sprite[4][];
 		FillSprites(walkAnims, NUM_WALK_FRAMES, "");
@@ -240,8 +243,8 @@ public class Person : MonoBehaviour {
 
 		if (Infected)
 		{
-			Lifespan -= Time.fixedDeltaTime;
-			if (Lifespan <= 0)
+			TimeToLive -= Time.fixedDeltaTime;
+			if (TimeToLive <= 0)
 			{
 				Die();
 			}
