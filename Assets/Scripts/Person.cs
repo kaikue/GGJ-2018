@@ -301,6 +301,17 @@ public class Person : MonoBehaviour {
 	public void GetInfected()
 	{
 		Infected = true;
+
+		//might run before Start()
+		if (sr == null)
+		{
+			sr = GetComponent<SpriteRenderer>();
+		}
+		if (controller == null)
+		{
+			controller = GameObject.Find("GameController").GetComponent<GameController>();
+		}
+
 		sr.material = GreenTint;
 		controller.AddInfected(gameObject);
 	}
