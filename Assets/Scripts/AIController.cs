@@ -6,7 +6,7 @@ public class AIController : MonoBehaviour {
 
 	public Vector2[] targets = new Vector2[] {new Vector2(0.0f, 0.0f)};
 	public float expectedStationaryTime = 5.0f;
-	public float coughRunTime = 5.0f;
+	public float coughRunTime = 2.0f;
 	public float coughRunRange = 5.0f;
 
 	private Person person;
@@ -55,7 +55,8 @@ public class AIController : MonoBehaviour {
  	}
 
 	public void OnEnable() {
-		SetWalking ();
+		isWalking = true;
+		isRunning = false;
 	}
 
 	public void OnDisable() {
