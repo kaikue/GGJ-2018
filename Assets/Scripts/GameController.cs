@@ -46,8 +46,6 @@ public class GameController : MonoBehaviour {
 				sprites.Add (name, Resources.Load<Sprite> (name + "/Down/frame1"));
 			}
 		}
-
-		print (sprites.Count);
 	}
 	
 	void Update()
