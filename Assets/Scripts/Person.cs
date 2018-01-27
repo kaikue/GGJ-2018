@@ -8,13 +8,16 @@ public class Person : MonoBehaviour {
 	public bool Playable;
 	public GameObject CoughPrefab;
 
-	private const float SPEED_MULT = 0.05f;
+	public float Speed;
+	public float CoughSpeed;
+	public float CoughDistance;
 
 	private Rigidbody2D rb;
 	private GameController controller;
 	private bool switchQueued = false;
 	private bool coughQueued = false;
 	private GameObject cough = null;
+	private Vector2 facing;
 	
 	void Start ()
 	{
@@ -38,6 +41,14 @@ public class Person : MonoBehaviour {
 			{
 				switchQueued = true;
 			}
+
+			if ((Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0))
+			{
+				controller.UsingMouse = true;
+			}
+
+			//if (Input.GetAxis( //right stick
+			//controller.usingMouse = false;
 		}
 	}
 
@@ -47,8 +58,22 @@ public class Person : MonoBehaviour {
 		{
 			Vector2 vel = rb.velocity;
 
-			vel.x = Input.GetAxis("Horizontal") * SPEED_MULT;
-			vel.y = Input.GetAxis("Vertical") * SPEED_MULT;
+			float horiz = Input.GetAxis("Horizontal");
+			float vert = Input.GetAxis("Vertical");
+
+            vel.x = horiz * Speed;
+			vel.y = vert * Speed;
+
+			if (horiz != 0)
+			{
+				facing = new Vector2(horiz < 0 ? -1 : 1, 0);
+			}
+			else if (vert != 0)
+			{
+				facing = new Vector2(0, vert < 0 ? -1 : 1);
+			}
+
+			print(facing);
 
 			rb.MovePosition(rb.position + vel);
 
@@ -58,10 +83,7 @@ public class Person : MonoBehaviour {
 				coughQueued = false;
 				if (cough == null)
 				{
-					cough = Instantiate(CoughPrefab);
-					cough.transform.position = gameObject.transform.position;
-					cough.transform.parent = gameObject.transform;
-					StartCoroutine("RemoveCoughDelay");
+					CreateCough();
 				}
 			}
 
@@ -79,9 +101,35 @@ public class Person : MonoBehaviour {
 		}
 	}
 
+	private void CreateCough()
+	{
+		/*Vector2 coughVel = new Vector2();
+		if (controller.UsingMouse)
+		{
+			coughVel.x = Input.mousePosition.x - Screen.width / 2;
+			coughVel.y = Input.mousePosition.y - Screen.height / 2;
+		}
+		else
+		{
+			//right stick
+		}
+		coughVel.Normalize();
+		*/
+
+		Vector2 coughVel = facing.normalized;
+		coughVel *= CoughSpeed;
+		coughVel += rb.velocity;
+
+		cough = Instantiate(CoughPrefab);
+		cough.transform.position = gameObject.transform.position;
+		cough.transform.parent = gameObject.transform;
+		cough.GetComponent<Rigidbody2D>().velocity = coughVel;
+		StartCoroutine("RemoveCoughDelay");
+	}
+
 	private IEnumerator RemoveCoughDelay()
 	{
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(CoughDistance);
 		RemoveCough();
 	}
 

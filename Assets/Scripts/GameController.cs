@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour {
 	public GameObject player;
 	public Camera cam;
 
+	public bool UsingMouse = true;
+
 	private List<GameObject> infected;
 	private int playerIndex;
 
