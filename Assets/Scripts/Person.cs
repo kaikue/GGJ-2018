@@ -319,6 +319,7 @@ public class Person : MonoBehaviour {
 	private void Die()
 	{
 		//TODO make it look dead
+		//set the material back to normal?
 		dead = true;
 		Destroy(rb);
 		Destroy(gameObject.GetComponent<BoxCollider2D>()); //or maybe not, if people still interact
