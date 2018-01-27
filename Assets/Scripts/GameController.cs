@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour {
 		}
 		else
 		{
-			FillHealthBar(playerHealth, infected[playerIndex].GetComponent<Person>());
+            FillHealthBar(playerHealth, infected[playerIndex].GetComponent<Person>());
 		}
 
 		for (int i = 0; i < infectedIndicators.Length; i++) {
@@ -141,6 +141,10 @@ public class GameController : MonoBehaviour {
 
 	public void RemoveDead(GameObject person)
 	{
+		if (infected.IndexOf(person) < playerIndex)
+		{
+			playerIndex--;
+		}
 		infected.Remove(person);
 	}
 

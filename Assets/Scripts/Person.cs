@@ -318,7 +318,7 @@ public class Person : MonoBehaviour {
 
 	private void Die()
 	{
-		//TODO make it look dead
+		sr.sprite = Resources.Load<Sprite>(Name + "/dead");
 		//set the material back to normal?
 		dead = true;
 		Destroy(rb);
