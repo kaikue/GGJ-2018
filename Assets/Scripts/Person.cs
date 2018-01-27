@@ -27,11 +27,16 @@ public class Person : MonoBehaviour {
 	private SpriteRenderer sr;
 	private Sprite[] standSprites;
 	private Sprite[][] walkAnims;
+	private Sprite[][] coughAnims;
 	private string[] DIRECTIONS = { "Down", "Left", "Up", "Right" };
-	private const int NUM_FRAMES = 8;
-	private int frameIndex = 0;
+	private const int NUM_WALK_FRAMES = 8;
+	private const int NUM_COUGH_FRAMES = 9;
 	private const float FRAME_TIME = 0.1f;
-	private float frameTimer = FRAME_TIME;
+	private int walkFrameIndex = 0;
+	private float walkFrameTimer = FRAME_TIME;
+	private int coughFrameIndex = 0;
+	private float coughFrameTimer = FRAME_TIME;
+	private bool coughing;
 
 	void Start()
 	{
@@ -39,30 +44,36 @@ public class Person : MonoBehaviour {
 		ai = GetComponent<AIController>();
 		controller = GameObject.Find("GameController").GetComponent<GameController>();
 		sr = GetComponent<SpriteRenderer>();
-		standSprites = new Sprite[4];
 		FillStandSprites();
-		FillWalkSprites();
+		walkAnims = new Sprite[4][];
+		FillSprites(walkAnims, NUM_WALK_FRAMES, "");
+		coughAnims = new Sprite[4][];
+		FillSprites(coughAnims, NUM_COUGH_FRAMES, "Cough");
 	}
 
 	private void FillStandSprites()
 	{
-		walkAnims = new Sprite[4][];
-		for (int i = 0; i < 4; i++)
+		standSprites = new Sprite[4];
+        for (int i = 0; i < 4; i++)
 		{
 			standSprites[i] = Resources.Load<Sprite>(Name + "/" + DIRECTIONS[i] + "/frame1");
 		}
 	}
 
-	private void FillWalkSprites()
+	private void FillSprites(Sprite[][] anims, int numFrames, string extra)
 	{
+		if (extra != "")
+		{
+			extra += "/";
+		}
 		for (int i = 0; i < 4; i++)
 		{
-			Sprite[] anim = new Sprite[NUM_FRAMES];
-			for (int j = 0; j < NUM_FRAMES; j++)
+			Sprite[] anim = new Sprite[numFrames];
+			for (int j = 0; j < numFrames; j++)
 			{
-				anim[j] = Resources.Load<Sprite>(Name + "/" + DIRECTIONS[i] + "/frame" + (j + 1));
-			}
-			walkAnims[i] = anim;
+				anim[j] = Resources.Load<Sprite>(Name + "/" + extra + DIRECTIONS[i] + "/frame" + (j + 1));
+            }
+			anims[i] = anim;
 		}
 	}
 
@@ -104,24 +115,43 @@ public class Person : MonoBehaviour {
 			*/
 		}
 
-		Vector2 vel = rb.velocity;
-		if (vel.x == 0 && vel.y == 0)
+		if (coughing)
 		{
-			frameIndex = 0;
-			frameTimer = FRAME_TIME;
-			sr.sprite = standSprites[GetFacingIndex()];
-		}
-		else
-		{
-			frameTimer -= Time.deltaTime;
-			if (frameTimer <= 0)
+			coughFrameTimer -= Time.deltaTime;
+			if (coughFrameTimer <= 0)
 			{
-				frameTimer = FRAME_TIME;
-				frameIndex = (frameIndex + 1) % NUM_FRAMES;
+				coughFrameTimer = FRAME_TIME;
+				coughFrameIndex = (coughFrameIndex + 1) % NUM_COUGH_FRAMES;
+				if (coughFrameIndex == 0)
+				{
+					coughing = false; //do the normal animation
+				}
 			}
-			Sprite[] anim = walkAnims[GetFacingIndex()];
-			sr.sprite = anim[frameIndex];
-        }
+			Sprite[] anim = coughAnims[GetFacingIndex()];
+			sr.sprite = anim[coughFrameIndex];
+		}
+
+		if (!coughing) //not an else, we want this to run when the last cough frame ends
+		{
+			Vector2 vel = rb.velocity;
+			if (vel.x == 0 && vel.y == 0)
+			{
+				walkFrameIndex = 0;
+				walkFrameTimer = FRAME_TIME;
+				sr.sprite = standSprites[GetFacingIndex()];
+			}
+			else
+			{
+				walkFrameTimer -= Time.deltaTime;
+				if (walkFrameTimer <= 0)
+				{
+					walkFrameTimer = FRAME_TIME;
+					walkFrameIndex = (walkFrameIndex + 1) % NUM_WALK_FRAMES;
+				}
+				Sprite[] anim = walkAnims[GetFacingIndex()];
+				sr.sprite = anim[walkFrameIndex];
+			}
+		}
 	}
 
 	private int GetFacingIndex()
@@ -236,6 +266,10 @@ public class Person : MonoBehaviour {
 		coughVel *= CoughSpeed;
 		coughVel += rb.velocity;
 
+		coughing = true;
+		coughFrameIndex = 0;
+		coughFrameTimer = FRAME_TIME;
+		
 		cough = Instantiate(CoughPrefab);
 		cough.transform.position = gameObject.transform.position;
 		cough.transform.parent = gameObject.transform;
