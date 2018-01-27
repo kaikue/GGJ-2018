@@ -188,10 +188,10 @@ MonoBehaviour:
   GreenTint: {fileID: 2100000, guid: f55b2a8da9cd035488a4c4caf95aa5d2, type: 2}
   Name: Man
   Speed: 5
-  CoughSpeed: 5
-  CoughDistance: 0.3
+  CoughSpeed: 3
   Lifespan: 20
   TimeToLive: 0
+  Cough: {fileID: 0}
 --- !u!114 &114973801840097808
 MonoBehaviour:
   m_ObjectHideFlags: 1

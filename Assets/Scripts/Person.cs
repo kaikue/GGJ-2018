@@ -13,9 +13,9 @@ public class Person : MonoBehaviour {
 	public string Name;
 	public float Speed;
 	public float CoughSpeed;
-	public float CoughDistance;
 	public float Lifespan;
-	public float TimeToLive; 
+	public float TimeToLive;
+	public Cough Cough;
 
 	private Rigidbody2D rb;
 	private AIController ai;
@@ -225,13 +225,11 @@ public class Person : MonoBehaviour {
 			if (nextQueued)
 			{
 				nextQueued = false;
-				RemoveCough();
 				controller.NextPlayer();
 			}
 			if (prevQueued)
 			{
 				prevQueued = false;
-				RemoveCough();
 				controller.PrevPlayer();
 			}
 		}
@@ -282,19 +280,8 @@ public class Person : MonoBehaviour {
 		cough.transform.position = gameObject.transform.position;
 		cough.transform.parent = gameObject.transform;
 		cough.GetComponent<Rigidbody2D>().velocity = coughVel;
-		StartCoroutine(RemoveCoughDelay());
-	}
-
-	private IEnumerator RemoveCoughDelay()
-	{
-		yield return new WaitForSeconds(CoughDistance);
-		RemoveCough();
-	}
-
-	private void RemoveCough()
-	{
-		Destroy(cough);
-		cough = null;
+		Cough = cough.GetComponent<Cough>();
+		Cough.cougher = this;
 	}
 
 	void OnTriggerEnter2D(Collider2D collider)
