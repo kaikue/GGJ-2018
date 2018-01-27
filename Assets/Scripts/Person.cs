@@ -121,8 +121,12 @@ public class Person : MonoBehaviour {
 		}
 		else
 		{
-			//AI
-			rb.velocity = ai.GetVelocity();
+			if (ai != null) {
+				if (!ai.enabled) {
+					ai.enabled = true;
+				}
+				rb.velocity = ai.GetVelocity ();
+			}
 		}
 
 		if (Infected)
