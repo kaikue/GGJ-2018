@@ -54,7 +54,14 @@ public class GameController : MonoBehaviour {
 			endIndex = startIndex + infectedIndicators.Length;
 		}
 
-		FillHealthBar(playerHealth, infected[playerIndex].GetComponent<Person>());
+		if (infected.Count == 0)
+		{
+			playerHealth.gameObject.SetActive(false);
+		}
+		else
+		{
+			FillHealthBar(playerHealth, infected[playerIndex].GetComponent<Person>());
+		}
 
 		for (int i = 0; i < infectedIndicators.Length; i++) {
 			if (i + startIndex >= endIndex) {
