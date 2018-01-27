@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour {
 		foreach (GameObject person in people) {
 			string name = person.GetComponent<Person> ().Name;
 			if (!sprites.ContainsKey (name)) {
-				sprites.Add (name, Resources.Load<Sprite> (name + "/Down/frame1"));
+				sprites.Add (name, Resources.Load<Sprite> (name + "/portrait"));
 			}
 		}
 	}

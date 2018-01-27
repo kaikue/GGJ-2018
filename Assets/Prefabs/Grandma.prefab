@@ -110,7 +110,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 15
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -189,9 +189,9 @@ MonoBehaviour:
   Name: Grandma
   Speed: 3
   CoughSpeed: 5
-  CoughDistance: 0.3
   Lifespan: 10
   TimeToLive: 0
+  Cough: {fileID: 0}
 --- !u!114 &114973801840097808
 MonoBehaviour:
   m_ObjectHideFlags: 1
