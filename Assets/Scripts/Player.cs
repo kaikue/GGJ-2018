@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+	private Rigidbody2D rb;
+	private const float SPEED_MULT = 0.05f;
+	
+	void Start ()
+	{
+		rb = GetComponent<Rigidbody2D>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	void FixedUpdate()
+	{
+		Vector2 vel = rb.velocity;
+
+		vel.x = Input.GetAxisRaw("Horizontal") * SPEED_MULT;
+		vel.y = Input.GetAxisRaw("Vertical") * SPEED_MULT;
+
+		rb.MovePosition(rb.position + vel);
 	}
 }
