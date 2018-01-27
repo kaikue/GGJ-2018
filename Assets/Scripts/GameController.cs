@@ -7,13 +7,15 @@ public class GameController : MonoBehaviour {
 
 	public GameObject player;
 	public Camera cam;
-	public Text txt;
+	public Text remainingText;
+	public Text winLoseText;
 
 	//public bool UsingMouse = true;
 
 	private List<GameObject> infected;
 	private int playerIndex;
 	private List<GameObject> uninfected;
+	private bool won = false;
 
 	void Start()
 	{
@@ -27,7 +29,7 @@ public class GameController : MonoBehaviour {
 	
 	void Update()
 	{
-		txt.text = "Uninfected Remaining: " + uninfected.Count;
+		remainingText.text = "HEALTHY REMAINING: " + uninfected.Count;
 	}
 	
 	private void SetControl(GameObject personObj, bool controlling)
@@ -42,6 +44,7 @@ public class GameController : MonoBehaviour {
         }
 		Person person = personObj.GetComponent<Person>();
 		person.Playing = controlling;
+		personObj.GetComponent<Rigidbody2D>().velocity = new Vector2();
 	}
 
 	public void AddInfected(GameObject person)
@@ -87,7 +90,10 @@ public class GameController : MonoBehaviour {
 	{
 		if (infected.Count == 0)
 		{
-			Lose();
+			if (!won)
+			{
+				Lose();
+			}
 		}
 		else
 		{
@@ -97,13 +103,16 @@ public class GameController : MonoBehaviour {
 
 	public void Win()
 	{
-		//TODO next scene
-		print("YOU WIN!!!");
+		won = true;
+		winLoseText.gameObject.SetActive(true);
+		winLoseText.text = "LEVEL COMPLETE!";
+		//TODO next scene after delay
 	}
 
 	public void Lose()
 	{
-		//TODO restart scene
-		print("you lose!");
+		winLoseText.gameObject.SetActive(true);
+		winLoseText.text = "GAME OVER";
+		//TODO restart scene after delay
 	}
 }
