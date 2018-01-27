@@ -104,6 +104,7 @@ MonoBehaviour:
   Playing: 0
   CoughPrefab: {fileID: 1707092029020964, guid: a434906297347f4408d6fa965e642d62,
     type: 2}
+  GreenTint: {fileID: 2100000, guid: f55b2a8da9cd035488a4c4caf95aa5d2, type: 2}
   Name: Grandma
   Speed: 3
   CoughSpeed: 5

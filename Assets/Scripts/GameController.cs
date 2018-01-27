@@ -21,8 +21,7 @@ public class GameController : MonoBehaviour {
 	{
 		uninfected = new List<GameObject>(GameObject.FindGameObjectsWithTag("Person"));
 		infected = new List<GameObject>();
-		player.GetComponent<Person>().Infected = true;
-		AddInfected(player);
+		player.GetComponent<Person>().GetInfected();
 		playerIndex = 0;
 		SetControl(player, true);
 	}

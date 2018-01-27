@@ -7,6 +7,7 @@ public class Person : MonoBehaviour {
 	public bool Infected;
 	public bool Playing;
 	public GameObject CoughPrefab;
+	public Material GreenTint;
 
 	public string Name;
 	public float Speed;
@@ -297,9 +298,10 @@ public class Person : MonoBehaviour {
 		}
 	}
 
-	private void GetInfected()
+	public void GetInfected()
 	{
 		Infected = true;
+		sr.material = GreenTint;
 		controller.AddInfected(gameObject);
 	}
 
