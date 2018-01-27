@@ -275,7 +275,7 @@ public class Person : MonoBehaviour {
 		cough.transform.position = gameObject.transform.position;
 		cough.transform.parent = gameObject.transform;
 		cough.GetComponent<Rigidbody2D>().velocity = coughVel;
-		StartCoroutine("RemoveCoughDelay");
+		StartCoroutine(RemoveCoughDelay());
 	}
 
 	private IEnumerator RemoveCoughDelay()
@@ -323,6 +323,7 @@ public class Person : MonoBehaviour {
 		Destroy(rb);
 		Destroy(gameObject.GetComponent<BoxCollider2D>()); //or maybe not, if people still interact
 		controller.RemoveDead(gameObject);
+		sr.sortingLayerName = "Objects";
 
 		if (Playing)
 		{
