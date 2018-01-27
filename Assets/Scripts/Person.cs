@@ -15,7 +15,8 @@ public class Person : MonoBehaviour {
 
 	private Rigidbody2D rb;
 	private GameController controller;
-	private bool switchQueued = false;
+	private bool nextQueued = false;
+	private bool prevQueued = false;
 	private bool coughQueued = false;
 	private GameObject cough = null;
 	private Vector2 facing = new Vector2(0, -1);
@@ -42,20 +43,27 @@ public class Person : MonoBehaviour {
 			{
 				coughQueued = true;
 			}
-			
-			if (Input.GetKeyDown(KeyCode.Tab) ||
+
+			if (Input.GetKeyDown(KeyCode.RightShift) ||
 				Input.GetKeyDown(KeyCode.JoystickButton5))
 			{
-				switchQueued = true;
+				nextQueued = true;
 			}
 
-			if ((Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0))
+			if (Input.GetKeyDown(KeyCode.LeftShift) ||
+				Input.GetKeyDown(KeyCode.JoystickButton4))
+			{
+				prevQueued = true;
+			}
+
+			/*if ((Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0))
 			{
 				controller.UsingMouse = true;
 			}
 
 			//if (Input.GetAxis( //right stick
 			//controller.usingMouse = false;
+			*/
 		}
 	}
 
@@ -89,7 +97,6 @@ public class Person : MonoBehaviour {
 			
 			if (coughQueued)
 			{
-				print("cough");
 				coughQueued = false;
 				if (cough == null)
 				{
@@ -97,11 +104,17 @@ public class Person : MonoBehaviour {
 				}
 			}
 
-			if (switchQueued)
+			if (nextQueued)
 			{
-				switchQueued = false;
+				nextQueued = false;
 				RemoveCough();
-				controller.SwitchPlayer();
+				controller.NextPlayer();
+			}
+			if (prevQueued)
+			{
+				prevQueued = false;
+				RemoveCough();
+				controller.PrevPlayer();
 			}
 		}
 		else
@@ -175,7 +188,6 @@ public class Person : MonoBehaviour {
 	private void Die()
 	{
 		//TODO make it look dead
-		print(this + " died");
 		dead = true;
 		Destroy(rb);
 		Destroy(gameObject.GetComponent<BoxCollider2D>()); //or maybe not, if people still interact
