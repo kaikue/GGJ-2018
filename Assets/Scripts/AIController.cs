@@ -5,7 +5,7 @@ using UnityEngine;
 public class AIController : MonoBehaviour {
 
 	public Vector2[] targets = new Vector2[] {new Vector2(0.0f, 0.0f)};
-	public float expectedStationaryTime = 10.0f;
+	public float expectedStationaryTime = 5.0f;
 	public float coughRunTime = 5.0f;
 	public float coughRunRange = 5.0f;
 
@@ -75,6 +75,7 @@ public class AIController : MonoBehaviour {
 	private void SetRunning(GameObject cough) {
 		isRunning = true;
 		isWalking = false;
+		coughRunTimeRemaining = coughRunTime;
 		velocity = gameObject.transform.position - cough.transform.position;
 		velocity.Normalize ();
 		velocity.Scale (new Vector2(person.Speed * 2, person.Speed * 2));
