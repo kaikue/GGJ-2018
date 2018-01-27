@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour {
         }
 		Person person = personObj.GetComponent<Person>();
 		person.Playing = controlling;
+		personObj.GetComponent<Rigidbody2D>().velocity = new Vector2();
 	}
 
 	public void AddInfected(GameObject person)
