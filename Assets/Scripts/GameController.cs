@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
@@ -16,13 +17,13 @@ public class GameController : MonoBehaviour {
 	private int playerIndex;
 	private List<GameObject> uninfected;
 	private bool won = false;
+	private const float LEVEL_COMPLETE_TIME = 3.0f;
 
 	void Start()
 	{
 		uninfected = new List<GameObject>(GameObject.FindGameObjectsWithTag("Person"));
 		infected = new List<GameObject>();
-		player.GetComponent<Person>().Infected = true;
-		AddInfected(player);
+		player.GetComponent<Person>().GetInfected();
 		playerIndex = 0;
 		SetControl(player, true);
 	}
@@ -106,13 +107,27 @@ public class GameController : MonoBehaviour {
 		won = true;
 		winLoseText.gameObject.SetActive(true);
 		winLoseText.text = "LEVEL COMPLETE!";
-		//TODO next scene after delay
+		StartCoroutine(NextLevel());
+	}
+
+	private IEnumerator NextLevel()
+	{
+		yield return new WaitForSeconds(LEVEL_COMPLETE_TIME);
+		winLoseText.gameObject.SetActive(false);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 
 	public void Lose()
 	{
 		winLoseText.gameObject.SetActive(true);
 		winLoseText.text = "GAME OVER";
-		//TODO restart scene after delay
+		StartCoroutine(RestartLevel());
+	}
+
+	private IEnumerator RestartLevel()
+	{
+		yield return new WaitForSeconds(LEVEL_COMPLETE_TIME);
+		winLoseText.gameObject.SetActive(false);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 }

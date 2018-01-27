@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 61365648989499532}
   - component: {fileID: 114973801840097808}
   m_Layer: 0
-  m_Name: Person
+  m_Name: Grandma
   m_TagString: Person
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,6 +104,7 @@ MonoBehaviour:
   Playing: 0
   CoughPrefab: {fileID: 1707092029020964, guid: a434906297347f4408d6fa965e642d62,
     type: 2}
+  GreenTint: {fileID: 2100000, guid: f55b2a8da9cd035488a4c4caf95aa5d2, type: 2}
   Name: Grandma
   Speed: 3
   CoughSpeed: 5
@@ -139,7 +140,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e629aedd2359fe9499d45581de5b10e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
