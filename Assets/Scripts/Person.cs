@@ -22,16 +22,20 @@ public class Person : MonoBehaviour {
 		controller = GameObject.Find("GameController").GetComponent<GameController>();
 	}
 	
-	void Update () {
-		if (Playable) {
+	void Update ()
+	{
+		if (Playable)
+		{
 			if (Input.GetKeyDown(KeyCode.Mouse0) ||
 				Input.GetKeyDown(KeyCode.Space) ||
 				Input.GetKeyDown(KeyCode.JoystickButton0))
 			{
 				coughQueued = true;
 			}
+			
 			if (Input.GetKeyDown(KeyCode.Tab) ||
-				Input.GetKeyDown(KeyCode.JoystickButton5)) {
+				Input.GetKeyDown(KeyCode.JoystickButton5))
+			{
 				switchQueued = true;
 			}
 		}
