@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114760821719105140}
   - component: {fileID: 50054812167160886}
   - component: {fileID: 61365648989499532}
+  - component: {fileID: 114973801840097808}
   m_Layer: 0
   m_Name: Person
   m_TagString: Person
@@ -108,6 +109,22 @@ MonoBehaviour:
   CoughSpeed: 5
   CoughDistance: 0.3
   Lifespan: 10
+--- !u!114 &114973801840097808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1614671542467136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd3a3d442f622345879ff34c90b7021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets:
+  - {x: 0, y: 0}
+  expectedStationaryTime: 5
+  coughRunTime: 5
+  coughRunRange: 5
 --- !u!212 &212764059223695894
 SpriteRenderer:
   m_ObjectHideFlags: 1
