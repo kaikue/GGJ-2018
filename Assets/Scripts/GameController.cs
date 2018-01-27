@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour {
 	public Camera cam;
 	public Text txt;
 
-	public bool UsingMouse = true;
+	//public bool UsingMouse = true;
 
 	private List<GameObject> infected;
 	private int playerIndex;
@@ -61,12 +61,26 @@ public class GameController : MonoBehaviour {
 		infected.Remove(person);
 	}
 
-	public void SwitchPlayer()
+	private int IndexMod(int x, int m)
+	{
+		return (x % m + m) % m;
+    }
+
+	public void NextPlayer()
+	{
+		SwitchPlayer(IndexMod(playerIndex + 1, infected.Count));
+    }
+
+	public void PrevPlayer()
+	{
+		SwitchPlayer(IndexMod(playerIndex - 1, infected.Count));
+	}
+
+	public void SwitchPlayer(int newIndex)
 	{
 		SetControl(player, false);
-		playerIndex = (playerIndex + 1) % infected.Count; //TODO: make a way to choose between infected
+		playerIndex = newIndex;
 		SetControl(infected[playerIndex], true);
-		print("Switch player " + playerIndex);
 	}
 
 	public void SwitchDead()
@@ -77,7 +91,7 @@ public class GameController : MonoBehaviour {
 		}
 		else
 		{
-			SwitchPlayer();
+			NextPlayer();
 		}
 	}
 

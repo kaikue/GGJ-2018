@@ -100,13 +100,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Infected: 0
-  Playable: 0
+  Playing: 0
   CoughPrefab: {fileID: 1707092029020964, guid: a434906297347f4408d6fa965e642d62,
     type: 2}
   Speed: 3
   CoughSpeed: 5
   CoughDistance: 0.3
-  Lifespan: 5
+  Lifespan: 10
 --- !u!212 &212764059223695894
 SpriteRenderer:
   m_ObjectHideFlags: 1
