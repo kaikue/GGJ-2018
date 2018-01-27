@@ -10,6 +10,7 @@ public class AIController : MonoBehaviour {
 	public float coughRunRange = 5.0f;
 
 	private Person person;
+	private Vector2 initialPosition;
 	private Vector2 velocity; 
 	private bool isRunning;
 	private bool isWalking;
@@ -18,6 +19,7 @@ public class AIController : MonoBehaviour {
 
 	void Start() {
 		person = GetComponent<Person> ();
+		initialPosition = gameObject.transform.position;
 		velocity = new Vector2 (0.0f, 0.0f);
 		isWalking = false;
 		isRunning = false;
@@ -71,6 +73,7 @@ public class AIController : MonoBehaviour {
 		isWalking = false;
 		isRunning = false;
 		velocity.Set (0.0f, 0.0f);
+   		targetIndex = (targetIndex + 1) % targets.Length;
 	}
 
 	private void SetRunning(GameObject cough) {
@@ -86,13 +89,12 @@ public class AIController : MonoBehaviour {
 		isWalking = true;
 		isRunning = false;
 		SetVelocity ();
-   		targetIndex = (targetIndex + 1) % targets.Length;
 	}
 
 	private void SetVelocity() {
 		velocity.Set (
-			targets[targetIndex].x - gameObject.transform.position.x,
-			targets[targetIndex].y - gameObject.transform.position.y);
+			targets[targetIndex].x + initialPosition.x - gameObject.transform.position.x,
+			targets[targetIndex].y + initialPosition.y - gameObject.transform.position.y);
 		velocity.Normalize ();
 		velocity.Scale (new Vector2 (person.Speed, person.Speed));
 	}
@@ -103,6 +105,6 @@ public class AIController : MonoBehaviour {
 	}
 
 	private float DistanceToTarget() {
-		return Vector2.Distance (targets[targetIndex], gameObject.transform.position);	
+		return Vector2.Distance (targets[targetIndex] + initialPosition, gameObject.transform.position);	
 	}
 }
