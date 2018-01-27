@@ -14,6 +14,7 @@ public class Person : MonoBehaviour {
 	public float Lifespan;
 
 	private Rigidbody2D rb;
+	private AIController ai;
 	private GameController controller;
 	private bool switchQueued = false;
 	private bool coughQueued = false;
@@ -23,7 +24,8 @@ public class Person : MonoBehaviour {
 	
 	void Start ()
 	{
-		rb = GetComponent<Rigidbody2D>();
+		rb = GetComponent<Rigidbody2D> ();
+		ai = GetComponent<AIController> ();
 		controller = GameObject.Find("GameController").GetComponent<GameController>();
 	}
 	
@@ -107,7 +109,7 @@ public class Person : MonoBehaviour {
 		else
 		{
 			//AI
-			rb.velocity = new Vector2(0, 0);
+			rb.velocity = ai.GetVelocity();
 		}
 
 		if (Infected)
