@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour {
 	{
 		uninfected = new List<GameObject>(GameObject.FindGameObjectsWithTag("Person"));
 		infected = new List<GameObject>();
+		player.GetComponent<Person>().Infected = true;
 		AddInfected(player);
 		playerIndex = 0;
 		SetControl(player, true);
@@ -28,17 +29,7 @@ public class GameController : MonoBehaviour {
 	{
 		txt.text = "Uninfected Remaining: " + uninfected.Count;
 	}
-
-	void FixedUpdate()
-	{
-		int numRemaining = uninfected.Count;
-		if (numRemaining == 0)
-		{
-			print("YOU WIN!!!");
-			//TODO win stuff
-		}
-	}
-
+	
 	private void SetControl(GameObject personObj, bool controlling)
 	{
 		if (controlling)
@@ -50,13 +41,24 @@ public class GameController : MonoBehaviour {
 												cam.transform.position.z);
         }
 		Person person = personObj.GetComponent<Person>();
-		person.Playable = controlling;
+		person.Playing = controlling;
 	}
 
 	public void AddInfected(GameObject person)
 	{
 		infected.Add(person);
 		uninfected.Remove(person);
+
+		int numRemaining = uninfected.Count;
+		if (numRemaining == 0)
+		{
+			Win();
+		}
+	}
+
+	public void RemoveDead(GameObject person)
+	{
+		infected.Remove(person);
 	}
 
 	public void SwitchPlayer()
@@ -67,4 +69,27 @@ public class GameController : MonoBehaviour {
 		print("Switch player " + playerIndex);
 	}
 
+	public void SwitchDead()
+	{
+		if (infected.Count == 0)
+		{
+			Lose();
+		}
+		else
+		{
+			SwitchPlayer();
+		}
+	}
+
+	public void Win()
+	{
+		//TODO next scene
+		print("YOU WIN!!!");
+	}
+
+	public void Lose()
+	{
+		//TODO restart scene
+		print("you lose!");
+	}
 }

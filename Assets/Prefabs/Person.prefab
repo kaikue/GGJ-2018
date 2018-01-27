@@ -106,6 +106,7 @@ MonoBehaviour:
   Speed: 3
   CoughSpeed: 5
   CoughDistance: 0.3
+  Lifespan: 5
 --- !u!212 &212764059223695894
 SpriteRenderer:
   m_ObjectHideFlags: 1

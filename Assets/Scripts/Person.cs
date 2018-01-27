@@ -5,12 +5,13 @@ using UnityEngine;
 public class Person : MonoBehaviour {
 
 	public bool Infected;
-	public bool Playable;
+	public bool Playing;
 	public GameObject CoughPrefab;
 
 	public float Speed;
 	public float CoughSpeed;
 	public float CoughDistance;
+	public float Lifespan;
 
 	private Rigidbody2D rb;
 	private GameController controller;
@@ -18,6 +19,7 @@ public class Person : MonoBehaviour {
 	private bool coughQueued = false;
 	private GameObject cough = null;
 	private Vector2 facing = new Vector2(0, -1);
+	private bool dead = false;
 	
 	void Start ()
 	{
@@ -27,7 +29,12 @@ public class Person : MonoBehaviour {
 	
 	void Update ()
 	{
-		if (Playable)
+		if (dead)
+		{
+			return;
+		}
+
+		if (Playing)
 		{
 			if (Input.GetKeyDown(KeyCode.Mouse0) ||
 				Input.GetKeyDown(KeyCode.Space) ||
@@ -54,7 +61,12 @@ public class Person : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		if (Playable)
+		if (dead)
+		{
+			return;
+		}
+
+		if (Playing)
 		{
 			Vector2 vel = new Vector2();
 
@@ -97,6 +109,15 @@ public class Person : MonoBehaviour {
 			//AI
 			rb.velocity = new Vector2(0, 0);
 		}
+
+		if (Infected)
+		{
+			Lifespan -= Time.fixedDeltaTime;
+			if (Lifespan <= 0)
+			{
+				Die();
+			}
+		}
 	}
 
 	private void CreateCough()
@@ -117,8 +138,6 @@ public class Person : MonoBehaviour {
 		Vector2 coughVel = facing.normalized;
 		coughVel *= CoughSpeed;
 		coughVel += rb.velocity;
-		print("normal: " + coughVel);
-		print("rb: " + rb.velocity);
 
 		cough = Instantiate(CoughPrefab);
 		cough.transform.position = gameObject.transform.position;
@@ -143,9 +162,29 @@ public class Person : MonoBehaviour {
 	{
 		if (!Infected && collider.gameObject.tag == "Cough")
 		{
-			print("im infected");
-			Infected = true;
-			controller.AddInfected(gameObject);
+			GetInfected();
+		}
+	}
+
+	private void GetInfected()
+	{
+		Infected = true;
+		controller.AddInfected(gameObject);
+	}
+
+	private void Die()
+	{
+		//TODO make it look dead
+		print(this + " died");
+		dead = true;
+		Destroy(rb);
+		Destroy(gameObject.GetComponent<BoxCollider2D>()); //or maybe not, if people still interact
+		controller.RemoveDead(gameObject);
+
+		if (Playing)
+		{
+			Playing = false;
+			controller.SwitchDead();
 		}
 	}
 }
