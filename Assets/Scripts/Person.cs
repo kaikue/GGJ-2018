@@ -154,6 +154,10 @@ public class Person : MonoBehaviour {
 
 		if (Playing)
 		{
+			if (ai != null) {
+				ai.enabled = false;
+			}
+
 			Vector2 vel = new Vector2();
 
 			float horiz = Input.GetAxisRaw("Horizontal");
@@ -198,9 +202,7 @@ public class Person : MonoBehaviour {
 		else
 		{
 			if (ai != null) {
-				if (!ai.enabled) {
-					ai.enabled = true;
-				}
+				ai.enabled = true;
 				rb.velocity = ai.GetVelocity ();
 			}
 		}
