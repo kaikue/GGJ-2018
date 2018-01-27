@@ -40,10 +40,13 @@ public class GameController : MonoBehaviour {
 
 		List<GameObject> people = new List<GameObject> (GameObject.FindGameObjectsWithTag ("Person"));
 		foreach (GameObject person in people) {
-			if (!sprites.ContainsKey (person.name)) {
-				sprites.Add (person.name, Resources.Load<Sprite> (person.name + "Right/frame1"));
+			string name = person.GetComponent<Person> ().Name;
+			if (!sprites.ContainsKey (name)) {
+				sprites.Add (name, Resources.Load<Sprite> (name + "/Down/frame1"));
 			}
 		}
+
+		print (sprites.Count);
 	}
 	
 	void Update()
@@ -83,7 +86,7 @@ public class GameController : MonoBehaviour {
 				} else {
 					tint = new Color (1.0f, 1.0f, 1.0f, 0.5f);
 				}
-				infectedIndicators [i].sprite = sprites[person.name];
+				infectedIndicators [i].sprite = sprites[person.Name];
 				infectedIndicators [i].color = tint; 
 				infectedIndicators [i].gameObject.SetActive (true);
 
