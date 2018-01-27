@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -69,9 +70,14 @@ public class GameController : MonoBehaviour {
 				infectedIndicators [i].color = tint; 
 				infectedIndicators [i].gameObject.SetActive (true);
 
-				infectedHealth [i].value = person.TimeToLive / person.Lifespan;
+				float lifePercent = person.TimeToLive / person.Lifespan;
+				infectedHealth [i].value = lifePercent;
 				infectedHealth [i].gameObject.SetActive (true);
-
+				var fill = infectedHealth [i].GetComponentsInChildren<Image>().FirstOrDefault(t => t.name == "Fill");
+				if (fill != null)
+				{
+					fill.color = Color.Lerp(Color.red, Color.green, lifePercent);
+				}
 			}
 		}
 
