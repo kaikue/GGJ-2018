@@ -6,11 +6,13 @@ public class Person : MonoBehaviour {
 
 	public bool Infected;
 	public bool Playable;
+	public GameObject CoughPrefab;
 
 	private const float SPEED_MULT = 0.05f;
 
 	private Rigidbody2D rb;
 	private bool coughQueued = false;
+	private GameObject cough = null;
 	
 	void Start ()
 	{
@@ -42,7 +44,35 @@ public class Person : MonoBehaviour {
 			{
 				print("cough");
 				coughQueued = false;
+				if (cough == null)
+				{
+					cough = GameObject.Instantiate(CoughPrefab);
+					cough.transform.position = gameObject.transform.position;
+					cough.transform.parent = gameObject.transform;
+					StartCoroutine("KillCough");
+				}
 			}
+		}
+		else
+		{
+			//AI
+			rb.velocity = new Vector2(0, 0);
+		}
+	}
+
+	private IEnumerator KillCough()
+	{
+		yield return new WaitForSeconds(1);
+		Destroy(cough);
+		cough = null;
+	}
+
+	void OnTriggerEnter2D(Collider2D collider)
+	{
+		if (!Infected && collider.gameObject.tag == "Cough")
+		{
+			print("im infected");
+			Infected = true;
 		}
 	}
 }

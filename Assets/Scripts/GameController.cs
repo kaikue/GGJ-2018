@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
 	public GameObject player;
-	public Camera camera;
+	public Camera cam;
 
 	void Start ()
 	{
@@ -21,6 +21,6 @@ public class GameController : MonoBehaviour {
 	{
 		Person person = player.GetComponent<Person>();
 		person.Playable = true;
-		camera.transform.SetParent(player.transform);
+		cam.transform.SetParent(player.transform);
 	}
 }
