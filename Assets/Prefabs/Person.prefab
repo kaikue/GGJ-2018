@@ -56,7 +56,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   Playable: 0
   CoughPrefab: {fileID: 1707092029020964, guid: a434906297347f4408d6fa965e642d62,
     type: 2}
-  Speed: 0.07
+  Speed: 3
   CoughSpeed: 5
   CoughDistance: 0.3
 --- !u!212 &212764059223695894

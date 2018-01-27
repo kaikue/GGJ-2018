@@ -17,7 +17,7 @@ public class Person : MonoBehaviour {
 	private bool switchQueued = false;
 	private bool coughQueued = false;
 	private GameObject cough = null;
-	private Vector2 facing;
+	private Vector2 facing = new Vector2(0, -1);
 	
 	void Start ()
 	{
@@ -56,10 +56,10 @@ public class Person : MonoBehaviour {
 	{
 		if (Playable)
 		{
-			Vector2 vel = rb.velocity;
+			Vector2 vel = new Vector2();
 
-			float horiz = Input.GetAxis("Horizontal");
-			float vert = Input.GetAxis("Vertical");
+			float horiz = Input.GetAxisRaw("Horizontal");
+			float vert = Input.GetAxisRaw("Vertical");
 
             vel.x = horiz * Speed;
 			vel.y = vert * Speed;
@@ -72,11 +72,9 @@ public class Person : MonoBehaviour {
 			{
 				facing = new Vector2(0, vert < 0 ? -1 : 1);
 			}
-
-			print(facing);
-
-			rb.MovePosition(rb.position + vel);
-
+			
+			rb.velocity = vel;
+			
 			if (coughQueued)
 			{
 				print("cough");
@@ -119,6 +117,8 @@ public class Person : MonoBehaviour {
 		Vector2 coughVel = facing.normalized;
 		coughVel *= CoughSpeed;
 		coughVel += rb.velocity;
+		print("normal: " + coughVel);
+		print("rb: " + rb.velocity);
 
 		cough = Instantiate(CoughPrefab);
 		cough.transform.position = gameObject.transform.position;
