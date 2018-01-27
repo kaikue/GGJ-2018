@@ -7,9 +7,15 @@ public class GameController : MonoBehaviour {
 	public GameObject player;
 	public Camera cam;
 
+	private List<GameObject> infected;
+	private int playerIndex;
+
 	void Start ()
 	{
-		TakeControl(player);
+		infected = new List<GameObject>();
+		AddInfected(player);
+		playerIndex = 0;
+		SetControl(player, true);
 	}
 	
 	void Update ()
@@ -17,10 +23,30 @@ public class GameController : MonoBehaviour {
 		
 	}
 
-	void TakeControl(GameObject player)
+	private void SetControl(GameObject personObj, bool controlling)
 	{
-		Person person = player.GetComponent<Person>();
-		person.Playable = true;
-		cam.transform.SetParent(player.transform);
+		if (controlling)
+		{
+			player = personObj;
+			cam.transform.SetParent(personObj.transform);
+			cam.transform.position = new Vector3(personObj.transform.position.x,
+												personObj.transform.position.y,
+												cam.transform.position.z);
+        }
+		Person person = personObj.GetComponent<Person>();
+		person.Playable = controlling;
+	}
+
+	public void AddInfected(GameObject person)
+	{
+		infected.Add(person);
+	}
+
+	public void SwitchPlayer()
+	{
+		SetControl(player, false);
+		playerIndex = (playerIndex + 1) % infected.Count; //TODO: make a way to choose between infected
+		SetControl(infected[playerIndex], true);
+		print("Switch player " + playerIndex);
 	}
 }
