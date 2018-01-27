@@ -190,6 +190,7 @@ public class GameController : MonoBehaviour {
 		won = true;
 		winLoseText.gameObject.SetActive(true);
 		winLoseText.text = "LEVEL COMPLETE!";
+		PlaySound("win");
 		StartCoroutine(NextLevel());
 	}
 
