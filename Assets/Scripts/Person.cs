@@ -20,6 +20,7 @@ public class Person : MonoBehaviour {
 	private Rigidbody2D rb;
 	private AIController ai;
 	private GameController controller;
+	private AudioSource audioSrc;
 	private bool nextQueued = false;
 	private bool prevQueued = false;
 	private bool coughQueued = false;
@@ -47,6 +48,7 @@ public class Person : MonoBehaviour {
 		ai = GetComponent<AIController>();
 		controller = GameObject.Find("GameController").GetComponent<GameController>();
 		sr = GetComponent<SpriteRenderer>();
+		audioSrc = GetComponent<AudioSource>();
 		TimeToLive = Lifespan;
 		FillStandSprites();
 		walkAnims = new Sprite[4][];
@@ -274,7 +276,7 @@ public class Person : MonoBehaviour {
 		coughFrameIndex = 0;
 		coughFrameTimer = FRAME_TIME;
 
-		controller.PlaySound("cough");
+		PlaySound(Name + "/cough");
 
 		cough = Instantiate(CoughPrefab);
 		cough.transform.position = gameObject.transform.position;
@@ -321,6 +323,12 @@ public class Person : MonoBehaviour {
 		controller.AddInfected(gameObject);
 	}
 
+	public void PlaySound(string soundName)
+	{
+		audioSrc.clip = Resources.Load<AudioClip>("Sounds/" + soundName);
+		audioSrc.Play();
+	}
+
 	private void Die()
 	{
 		//TODO make it look dead
@@ -330,6 +338,8 @@ public class Person : MonoBehaviour {
 		Destroy(gameObject.GetComponent<BoxCollider2D>()); //or maybe not, if people still interact
 		controller.RemoveDead(gameObject);
 		sr.sortingLayerName = "Objects";
+
+		PlaySound(Name + "/die");
 
 		if (Playing)
 		{
