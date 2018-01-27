@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 61365648989499532}
   - component: {fileID: 114973801840097808}
   m_Layer: 0
-  m_Name: Grandma
+  m_Name: Man
   m_TagString: Person
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1614671542467136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.53, y: 2.49, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: 1.71, y: 0.02, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -76,18 +76,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03806591, y: 0.026407719}
+  m_Offset: {x: 0.081159115, y: -0.2916336}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.35, y: 5.01}
+    oldSize: {x: 12.16, y: 16.22}
     newSize: {x: 0.24, y: 0.24}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.3180075, y: 4.2177687}
+  m_Size: {x: 7.371644, y: 9.742065}
   m_EdgeRadius: 0
 --- !u!114 &114760821719105140
 MonoBehaviour:
@@ -105,11 +105,12 @@ MonoBehaviour:
   CoughPrefab: {fileID: 1707092029020964, guid: a434906297347f4408d6fa965e642d62,
     type: 2}
   GreenTint: {fileID: 2100000, guid: f55b2a8da9cd035488a4c4caf95aa5d2, type: 2}
-  Name: Grandma
-  Speed: 3
+  Name: Man
+  Speed: 5
   CoughSpeed: 5
   CoughDistance: 0.3
-  Lifespan: 10
+  Lifespan: 20
+  TimeToLive: 0
 --- !u!114 &114973801840097808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -160,7 +161,7 @@ SpriteRenderer:
   m_SortingLayerID: 1467729863
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ec1ae9cb0c0c45745997f70707396ad7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 44e1b38b5f9cdf74a9c8418e397a7138, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
