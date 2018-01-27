@@ -205,6 +205,7 @@ public class GameController : MonoBehaviour {
 	{
 		winLoseText.gameObject.SetActive(true);
 		winLoseText.text = "GAME OVER";
+		PlaySound("lose");
 		StartCoroutine(RestartLevel());
 	}
 
