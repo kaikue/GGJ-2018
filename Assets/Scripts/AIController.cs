@@ -31,7 +31,7 @@ public class AIController : MonoBehaviour {
 			} else {
 				coughRunTimeRemaining -= Time.fixedDeltaTime;
 			}
-		} else {
+		} else if (!person.Infected) {
 			GameObject[] coughs = GameObject.FindGameObjectsWithTag ("Cough");
 			foreach (GameObject cough in coughs) {
 				if (Vector2.Distance (cough.transform.position, gameObject.transform.position) < coughRunRange) {
