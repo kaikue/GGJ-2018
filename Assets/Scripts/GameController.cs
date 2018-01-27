@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour {
 
 	//public bool UsingMouse = true;
 
-	private Sprite sprite;
+	private Dictionary<string, Sprite> sprites;
 	private List<GameObject> infected;
 	private int playerIndex;
 	private List<GameObject> uninfected;
@@ -36,7 +36,14 @@ public class GameController : MonoBehaviour {
 	}
 
 	void loadInfectedIndicatorSprites() {
-		sprite = Resources.Load<Sprite> ("Grandma/Right/frame1");
+		sprites = new Dictionary<string, Sprite> ();
+
+		List<GameObject> people = new List<GameObject> (GameObject.FindGameObjectsWithTag ("Person"));
+		foreach (GameObject person in people) {
+			if (!sprites.ContainsKey (person.name)) {
+				sprites.Add (person.name, Resources.Load<Sprite> (person.name + "Right/frame1"));
+			}
+		}
 	}
 	
 	void Update()
@@ -76,7 +83,7 @@ public class GameController : MonoBehaviour {
 				} else {
 					tint = new Color (1.0f, 1.0f, 1.0f, 0.5f);
 				}
-				infectedIndicators [i].sprite = sprite;
+				infectedIndicators [i].sprite = sprites[person.name];
 				infectedIndicators [i].color = tint; 
 				infectedIndicators [i].gameObject.SetActive (true);
 
