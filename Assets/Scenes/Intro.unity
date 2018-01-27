@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 1199435392}
   - component: {fileID: 1199435391}
   m_Layer: 0
-  m_Name: bernie
+  m_Name: instructions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
