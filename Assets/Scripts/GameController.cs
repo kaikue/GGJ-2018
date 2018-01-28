@@ -16,9 +16,7 @@ public class GameController : MonoBehaviour {
 	public Image[] infectedIndicators;
 	public Slider[] infectedHealth;
 	public Slider playerHealth;
-
-	//public bool UsingMouse = true;
-
+	
 	private Dictionary<string, Sprite> sprites;
 	private List<GameObject> infected;
 	private int playerIndex;

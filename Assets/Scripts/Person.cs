@@ -92,8 +92,7 @@ public class Person : MonoBehaviour {
 
 		if (Playing)
 		{
-			if (Input.GetKeyDown(KeyCode.Mouse0) ||
-				Input.GetKeyDown(KeyCode.Space) ||
+			if (Input.GetKeyDown(KeyCode.Space) ||
 				Input.GetKeyDown(KeyCode.JoystickButton0))
 			{
 				coughQueued = true;
@@ -110,15 +109,6 @@ public class Person : MonoBehaviour {
 			{
 				prevQueued = true;
 			}
-
-			/*if ((Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0))
-			{
-				controller.UsingMouse = true;
-			}
-
-			//if (Input.GetAxis( //right stick
-			//controller.usingMouse = false;
-			*/
 		}
 
 		if (coughing)
@@ -253,19 +243,6 @@ public class Person : MonoBehaviour {
 
 	private void CreateCough()
 	{
-		/*Vector2 coughVel = new Vector2();
-		if (controller.UsingMouse)
-		{
-			coughVel.x = Input.mousePosition.x - Screen.width / 2;
-			coughVel.y = Input.mousePosition.y - Screen.height / 2;
-		}
-		else
-		{
-			//right stick
-		}
-		coughVel.Normalize();
-		*/
-
 		Vector2 coughVel = facing.normalized;
 		coughVel *= CoughSpeed;
 		coughVel += rb.velocity;
