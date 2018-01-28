@@ -188,7 +188,7 @@ MonoBehaviour:
   GreenTint: {fileID: 2100000, guid: f55b2a8da9cd035488a4c4caf95aa5d2, type: 2}
   Name: Child
   Speed: 6
-  CoughSpeed: 2
+  CoughSpeed: 1
   Lifespan: 15
   TimeToLive: 0
   Cough: {fileID: 0}

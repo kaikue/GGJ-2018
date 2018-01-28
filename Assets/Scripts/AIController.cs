@@ -73,7 +73,7 @@ public class AIController : MonoBehaviour {
 
 	public void collision(Collider2D collider)
 	{
-		if (collider.gameObject.tag == "Person" && true) //(!collider.gameObject.GetComponent<AIController>().enabled))
+		if (collider.gameObject.tag == "Person" && (!collider.gameObject.GetComponent<AIController>().enabled))
 		{
 			SetRunning (collider.gameObject.transform.position, 0.1f);
 		}
@@ -92,7 +92,7 @@ public class AIController : MonoBehaviour {
 		coughRunTimeRemaining = runTime;
 		velocity = ((Vector2)gameObject.transform.position) - position;
 		velocity.Normalize ();
-		velocity.Scale (new Vector2(person.Speed * 2, person.Speed * 2));
+		velocity.Scale (new Vector2(person.Speed * 2.0f, person.Speed * 2.0f));
 	}
 
 	private void SetWalking() {

@@ -188,7 +188,7 @@ MonoBehaviour:
   GreenTint: {fileID: 2100000, guid: f55b2a8da9cd035488a4c4caf95aa5d2, type: 2}
   Name: Grandma
   Speed: 3
-  CoughSpeed: 5
+  CoughSpeed: 10
   Lifespan: 10
   TimeToLive: 0
   Cough: {fileID: 0}
