@@ -253,7 +253,7 @@ public class GameController : MonoBehaviour {
 	private IEnumerator NextLevelTransition()
 	{
 		yield return new WaitForSeconds(LEVEL_COMPLETE_TIME);
-		winLoseText.gameObject.SetActive(false);
+		winLoseText.text = "LOADING...";
 		NextLevel();
 	}
 
@@ -273,7 +273,7 @@ public class GameController : MonoBehaviour {
 	private IEnumerator RestartLevel()
 	{
 		yield return new WaitForSeconds(LEVEL_COMPLETE_TIME);
-		winLoseText.gameObject.SetActive(false);
+		winLoseText.text = "LOADING...";
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 }
