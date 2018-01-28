@@ -16,13 +16,20 @@ public class GameController : MonoBehaviour {
 	public Image[] infectedIndicators;
 	public Slider[] infectedHealth;
 	public Slider playerHealth;
-	
+	public Camera startCamera;
+	public Canvas canvas;
+	public bool Zooming;
+
 	private Dictionary<string, Sprite> sprites;
 	private List<GameObject> infected;
 	private int playerIndex;
 	private List<GameObject> uninfected;
 	private bool won = false;
 	private const float LEVEL_COMPLETE_TIME = 3.0f;
+	private Vector3 cameraGoalPos;
+	private float cameraGoalSize;
+	private const float SHOW_ROOM_TIME = 2.0f;
+	private const float ZOOM_TIME = 1.0f;
 
 	void Start()
 	{
@@ -32,6 +39,7 @@ public class GameController : MonoBehaviour {
 		playerIndex = 0;
 		loadInfectedIndicatorSprites ();
 		SetControl(player, true);
+		StartCoroutine(ShowRoom());
 	}
 
 	void loadInfectedIndicatorSprites() {
@@ -45,7 +53,36 @@ public class GameController : MonoBehaviour {
 			}
 		}
 	}
-	
+
+	private IEnumerator ShowRoom()
+	{
+		Zooming = true;
+		canvas.gameObject.SetActive(false);
+		cameraGoalPos = cam.transform.position;
+		cameraGoalSize = cam.orthographicSize;
+
+		cam.transform.position = startCamera.transform.position;
+		cam.orthographicSize = startCamera.orthographicSize;
+
+		yield return new WaitForSeconds(SHOW_ROOM_TIME);
+
+		StartCoroutine(Zoom());
+	}
+
+	private IEnumerator Zoom()
+	{
+		for (float t = 0; t < ZOOM_TIME; t += Time.deltaTime)
+		{
+			cam.transform.position = Vector3.Lerp(cam.transform.position, cameraGoalPos, t);
+			cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, cameraGoalSize, t);
+			yield return new WaitForEndOfFrame();
+		}
+		cam.transform.position = cameraGoalPos;
+        cam.orthographicSize = cameraGoalSize;
+		canvas.gameObject.SetActive(true);
+		Zooming = false;
+	}
+
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Backspace))

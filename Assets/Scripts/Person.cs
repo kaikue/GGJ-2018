@@ -85,7 +85,7 @@ public class Person : MonoBehaviour {
 
 	void Update()
 	{
-		if (Dead)
+		if (Dead || controller.Zooming)
 		{
 			return;
 		}
@@ -173,7 +173,7 @@ public class Person : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		if (Dead)
+		if (Dead || controller.Zooming)
 		{
 			return;
 		}
