@@ -267,6 +267,13 @@ public class Person : MonoBehaviour {
 		{
 			GetInfected();
 		}
+
+	}
+
+	void OnCollisionEnter2D(Collision2D collision) {
+		if (ai != null && ai.enabled) {
+			ai.collision (collision.collider);
+		}
 	}
 
 	public void GetInfected()

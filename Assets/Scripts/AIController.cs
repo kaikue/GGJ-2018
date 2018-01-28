@@ -27,18 +27,20 @@ public class AIController : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		if (isRunning) {
-			if (coughRunTimeRemaining <= 0.0f) {
-				SetStationary ();	
+		if (!person.Infected) {
+			if (isRunning) {
+				if (coughRunTimeRemaining <= 0.0f) {
+					SetStationary ();	
+				} else {
+					coughRunTimeRemaining -= Time.fixedDeltaTime;
+				}
 			} else {
-				coughRunTimeRemaining -= Time.fixedDeltaTime;
-			}
-		} else if (!person.Infected) {
-			GameObject[] coughs = GameObject.FindGameObjectsWithTag ("Cough");
-			foreach (GameObject cough in coughs) {
-				if (Vector2.Distance (cough.transform.position, gameObject.transform.position) < coughRunRange) {
-					SetRunning (cough);
-					break;
+				GameObject[] coughs = GameObject.FindGameObjectsWithTag ("Cough");
+				foreach (GameObject cough in coughs) {
+					if (Vector2.Distance (cough.transform.position, gameObject.transform.position) < coughRunRange) {
+						SetRunning (cough.transform.position, coughRunTime);
+						break;
+					}
 				}
 			}
 		}
@@ -69,6 +71,14 @@ public class AIController : MonoBehaviour {
 		return velocity;
 	}
 
+	public void collision(Collider2D collider)
+	{
+		if (collider.gameObject.tag == "Person" && true) //(!collider.gameObject.GetComponent<AIController>().enabled))
+		{
+			SetRunning (collider.gameObject.transform.position, 0.1f);
+		}
+	}
+
 	private void SetStationary() {
 		isWalking = false;
 		isRunning = false;
@@ -76,11 +86,11 @@ public class AIController : MonoBehaviour {
    		targetIndex = (targetIndex + 1) % targets.Length;
 	}
 
-	private void SetRunning(GameObject cough) {
+	private void SetRunning(Vector2 position, float runTime) {
 		isRunning = true;
 		isWalking = false;
-		coughRunTimeRemaining = coughRunTime;
-		velocity = gameObject.transform.position - cough.transform.position;
+		coughRunTimeRemaining = runTime;
+		velocity = ((Vector2)gameObject.transform.position) - position;
 		velocity.Normalize ();
 		velocity.Scale (new Vector2(person.Speed * 2, person.Speed * 2));
 	}
