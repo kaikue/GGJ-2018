@@ -50,7 +50,7 @@ public class GameController : MonoBehaviour {
 	
 	void Update()
 	{
-		remainingText.text = "HEALTHY REMAINING: " + uninfected.Count;
+		remainingText.text = "HEALTHY: " + uninfected.Count;
 
 		int startIndex;
 		int endIndex;
