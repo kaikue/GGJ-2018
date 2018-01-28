@@ -205,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targets:
   - {x: 0, y: 0}
-  expectedStationaryTime: 5
+  expectedStationaryTime: 1
   coughRunTime: 5
   coughRunRange: 5
 --- !u!212 &212764059223695894
