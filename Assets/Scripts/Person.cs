@@ -261,15 +261,6 @@ public class Person : MonoBehaviour {
 		Cough.cougher = this;
 	}
 
-	void OnTriggerEnter2D(Collider2D collider)
-	{
-		if (!Infected && collider.gameObject.tag == "Cough")
-		{
-			GetInfected();
-		}
-
-	}
-
 	void OnCollisionEnter2D(Collision2D collision) {
 		if (ai != null && ai.enabled) {
 			ai.collision (collision.collider);

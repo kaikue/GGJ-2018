@@ -42,6 +42,16 @@ public class Cough : MonoBehaviour {
 		sr.sprite = anim[frameIndex];
 	}
 
+	void OnTriggerEnter2D(Collider2D collider)
+	{
+		Person p = collider.gameObject.transform.parent.GetComponent<Person>();
+		if (p != null && !p.Infected)
+		{
+			p.GetInfected();
+		}
+
+	}
+
 	private void Die()
 	{
 		cougher.Cough = null;

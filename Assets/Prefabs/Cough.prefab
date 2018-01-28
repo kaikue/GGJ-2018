@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61960691346470132}
   - component: {fileID: 50642013918199110}
   - component: {fileID: 114471492640652550}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cough
   m_TagString: Cough
   m_Icon: {fileID: 0}
