@@ -292,7 +292,7 @@ public class Person : MonoBehaviour {
 		audioSrc.clip = Resources.Load<AudioClip>("Sounds/" + soundName);
 		audioSrc.Play();
 	}
-
+	
 	private void Die()
 	{
 		sr.sprite = Resources.Load<Sprite>(Name + "/dead");

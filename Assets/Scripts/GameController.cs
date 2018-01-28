@@ -48,6 +48,8 @@ public class GameController : MonoBehaviour {
 	
 	void Update()
 	{
+		CheckLoss();
+
 		remainingText.text = "" + uninfected.Count;
 
 		int startIndex;
@@ -172,14 +174,19 @@ public class GameController : MonoBehaviour {
 	{
 		if (infected.Count == 0)
 		{
-			if (!won)
-			{
-				Lose();
-			}
+			CheckLoss();
 		}
 		else
 		{
 			NextPlayer();
+		}
+	}
+
+	public void CheckLoss()
+	{
+		if (!won && infected.Count == 0 && GameObject.FindGameObjectsWithTag("Cough").Count() == 0)
+		{
+			Lose();
 		}
 	}
 
