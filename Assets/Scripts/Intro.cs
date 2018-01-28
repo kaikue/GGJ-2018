@@ -9,7 +9,7 @@ public class Intro : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Space) ||
 			Input.GetKeyDown(KeyCode.JoystickButton0))
 		{
-			SceneManager.LoadScene(1);
-        }
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+		}
 	}
 }
