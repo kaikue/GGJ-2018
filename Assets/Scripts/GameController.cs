@@ -68,13 +68,14 @@ public class GameController : MonoBehaviour {
 			endIndex = startIndex + infectedIndicators.Length;
 		}
 
-		if (infected.Count == 0)
+		if (NoInfected())
 		{
 			playerHealth.gameObject.SetActive(false);
 		}
 		else
 		{
-            FillHealthBar(playerHealth, infected[playerIndex].GetComponent<Person>());
+			playerHealth.gameObject.SetActive(true);
+			FillHealthBar(playerHealth, infected[playerIndex].GetComponent<Person>());
 		}
 
 		for (int i = 0; i < infectedIndicators.Length; i++) {
@@ -129,7 +130,10 @@ public class GameController : MonoBehaviour {
         }
 		Person person = personObj.GetComponent<Person>();
 		person.Playing = controlling;
-		personObj.GetComponent<Rigidbody2D>().velocity = new Vector2();
+		if (!person.Dead)
+		{
+			personObj.GetComponent<Rigidbody2D>().velocity = new Vector2();
+		}
 	}
 
 	public void AddInfected(GameObject person)
@@ -177,7 +181,7 @@ public class GameController : MonoBehaviour {
 
 	public void SwitchDead()
 	{
-		if (infected.Count == 0)
+		if (NoInfected())
 		{
 			CheckLoss();
 		}
@@ -189,11 +193,16 @@ public class GameController : MonoBehaviour {
 
 	public void CheckLoss()
 	{
-		if (!won && infected.Count == 0 && GameObject.FindGameObjectsWithTag("Cough").Count() == 0)
+		if (!won && NoInfected() && GameObject.FindGameObjectsWithTag("Cough").Count() == 0)
 		{
 			Lose();
 		}
 	}
+
+	public bool NoInfected()
+	{
+		return infected.Count == 0;
+    }
 
 	public void Win()
 	{

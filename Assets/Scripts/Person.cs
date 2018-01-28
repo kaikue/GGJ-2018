@@ -15,6 +15,7 @@ public class Person : MonoBehaviour {
 	public float CoughSpeed;
 	public float Lifespan;
 	public float TimeToLive;
+	public bool Dead = false;
 	public Cough Cough;
 
 	private Rigidbody2D rb;
@@ -26,7 +27,6 @@ public class Person : MonoBehaviour {
 	private bool coughQueued = false;
 	private GameObject cough = null;
 	private Vector2 facing = new Vector2(0, -1);
-	private bool dead = false;
 
 	private SpriteRenderer sr;
 	private Sprite[] standSprites;
@@ -85,7 +85,7 @@ public class Person : MonoBehaviour {
 
 	void Update()
 	{
-		if (dead)
+		if (Dead)
 		{
 			return;
 		}
@@ -173,7 +173,7 @@ public class Person : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		if (dead)
+		if (Dead)
 		{
 			return;
 		}
@@ -281,8 +281,14 @@ public class Person : MonoBehaviour {
 			controller = GameObject.Find("GameController").GetComponent<GameController>();
 		}
 
+		bool switchNow = controller.NoInfected();
+
 		sr.material = GreenTint;
 		controller.AddInfected(gameObject);
+		if (switchNow)
+		{
+			controller.SwitchPlayer(0);
+		}
 	}
 
 	public void PlaySound(string soundName)
@@ -295,7 +301,7 @@ public class Person : MonoBehaviour {
 	{
 		sr.sprite = Resources.Load<Sprite>(Name + "/dead");
 		//set the material back to normal?
-		dead = true;
+		Dead = true;
 		Destroy(rb);
 		Destroy(gameObject.GetComponent<BoxCollider2D>()); //or maybe not, if people still interact
 		controller.RemoveDead(gameObject);
