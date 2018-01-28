@@ -16,9 +16,7 @@ public class GameController : MonoBehaviour {
 	public Image[] infectedIndicators;
 	public Slider[] infectedHealth;
 	public Slider playerHealth;
-
-	//public bool UsingMouse = true;
-
+	
 	private Dictionary<string, Sprite> sprites;
 	private List<GameObject> infected;
 	private int playerIndex;
@@ -50,7 +48,7 @@ public class GameController : MonoBehaviour {
 	
 	void Update()
 	{
-		remainingText.text = "HEALTHY: " + uninfected.Count;
+		remainingText.text = "" + uninfected.Count;
 
 		int startIndex;
 		int endIndex;
