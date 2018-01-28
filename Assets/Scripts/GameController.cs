@@ -48,6 +48,11 @@ public class GameController : MonoBehaviour {
 	
 	void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.Backspace))
+		{
+			NextLevel();
+		}
+
 		CheckLoss();
 
 		remainingText.text = "" + uninfected.Count;
@@ -196,13 +201,18 @@ public class GameController : MonoBehaviour {
 		winLoseText.gameObject.SetActive(true);
 		winLoseText.text = "LEVEL COMPLETE!";
 		PlaySound("win");
-		StartCoroutine(NextLevel());
+		StartCoroutine(NextLevelTransition());
 	}
 
-	private IEnumerator NextLevel()
+	private IEnumerator NextLevelTransition()
 	{
 		yield return new WaitForSeconds(LEVEL_COMPLETE_TIME);
 		winLoseText.gameObject.SetActive(false);
+		NextLevel();
+	}
+
+	private void NextLevel()
+	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 
