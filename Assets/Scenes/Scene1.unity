@@ -3816,107 +3816,62 @@ Prefab:
     - target: {fileID: 224981623303068310, guid: bbf88dece6a3bc04fa61251f85b9468b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224237353876548646, guid: bbf88dece6a3bc04fa61251f85b9468b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224447531461908202, guid: bbf88dece6a3bc04fa61251f85b9468b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224640999689038068, guid: bbf88dece6a3bc04fa61251f85b9468b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224834964241182736, guid: bbf88dece6a3bc04fa61251f85b9468b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224152470732516536, guid: bbf88dece6a3bc04fa61251f85b9468b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224423842858835530, guid: bbf88dece6a3bc04fa61251f85b9468b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224354425610628252, guid: bbf88dece6a3bc04fa61251f85b9468b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224821698109300636, guid: bbf88dece6a3bc04fa61251f85b9468b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224622462621024060, guid: bbf88dece6a3bc04fa61251f85b9468b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224106013383633244, guid: bbf88dece6a3bc04fa61251f85b9468b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224963247023998364, guid: bbf88dece6a3bc04fa61251f85b9468b,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 20664611356690882, guid: bbf88dece6a3bc04fa61251f85b9468b,
-        type: 2}
-      propertyPath: orthographic size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 224129712879383464, guid: bbf88dece6a3bc04fa61251f85b9468b,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 224129712879383464, guid: bbf88dece6a3bc04fa61251f85b9468b,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 224106010056191944, guid: bbf88dece6a3bc04fa61251f85b9468b,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.00000021818
-      objectReference: {fileID: 0}
-    - target: {fileID: 224106010056191944, guid: bbf88dece6a3bc04fa61251f85b9468b,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 3.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 20664611356690882, guid: bbf88dece6a3bc04fa61251f85b9468b,
-        type: 2}
-      propertyPath: m_BackGroundColor.r
-      value: 0.8088235
-      objectReference: {fileID: 0}
-    - target: {fileID: 20664611356690882, guid: bbf88dece6a3bc04fa61251f85b9468b,
-        type: 2}
-      propertyPath: m_BackGroundColor.g
-      value: 0.8088235
-      objectReference: {fileID: 0}
-    - target: {fileID: 20664611356690882, guid: bbf88dece6a3bc04fa61251f85b9468b,
-        type: 2}
-      propertyPath: m_BackGroundColor.b
-      value: 0.8088235
-      objectReference: {fileID: 0}
-    - target: {fileID: 20664611356690882, guid: bbf88dece6a3bc04fa61251f85b9468b,
-        type: 2}
-      propertyPath: m_BackGroundColor.a
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bbf88dece6a3bc04fa61251f85b9468b, type: 2}
